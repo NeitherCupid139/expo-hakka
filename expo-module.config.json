@@ -1,9 +1,9 @@
 {
-  "platforms": ["apple", "android", "web"],
-  "apple": {
-    "modules": ["ExpoHakkaModule"]
-  },
-  "android": {
-    "modules": ["expo.modules.hakka.ExpoHakkaModule"]
-  }
+	"platforms": ["apple", "android"],
+	"apple": {
+		"modules": ["ExpoHakkaModule"]
+	},
+	"android": {
+		"modules": ["expo.modules.hakka.ExpoHakkaModule"]
+	}
 }

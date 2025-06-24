@@ -1,0 +1,92 @@
+# 工具栏交互综合测试
+appId: com.expohakka.example
+---
+- launchApp
+- assertVisible: "ExpoHakka Toolbar Demo"
+
+# 测试标准工具栏和自定义工具栏的交互差异
+- scroll:
+    direction: DOWN
+    until:
+      visible: "标准工具栏演示"
+
+# 标准工具栏交互测试
+- tapOn:
+    point: "50%,30%"
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# 如果有弹窗，关闭它
+- runFlow:
+    when:
+      visible: "确定"
+    commands:
+      - tapOn: "确定"
+
+# 滚动到自定义工具栏
+- scroll:
+    direction: DOWN
+    until:
+      visible: "自定义工具栏演示"
+
+# 自定义工具栏交互测试
+- tapOn:
+    point: "50%,30%"
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# 如果有弹窗，关闭它
+- runFlow:
+    when:
+      visible: "确定"
+    commands:
+      - tapOn: "确定"
+
+# 测试工具栏按钮的响应性
+# 快速连续点击测试
+- tapOn:
+    point: "70%,30%"
+- tapOn:
+    point: "80%,30%"
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# 处理可能出现的多个弹窗
+- repeat:
+    times: 3
+    commands:
+      - runFlow:
+          when:
+            visible: "确定"
+          commands:
+            - tapOn: "确定"
+            - waitForAnimationToEnd:
+                timeout: 1000
+
+# 滚动到无工具栏视图进行对比
+- scroll:
+    direction: DOWN
+    until:
+      visible: "无工具栏视图"
+
+- assertVisible: "无工具栏视图"
+- assertVisible: "不配置工具栏时显示的默认视图"
+
+# 验证无工具栏视图确实没有工具栏按钮
+# 点击该区域不应该有任何工具栏相关的弹窗
+- tapOn:
+    point: "50%,50%"
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# 确保没有工具栏相关的弹窗出现
+- assertNotVisible: "个人资料"
+- assertNotVisible: "添加按钮"
+- assertNotVisible: "搜索"
+- assertNotVisible: "更多选项"
+- assertNotVisible: "返回"
+- assertNotVisible: "保存"
+- assertNotVisible: "分享"
+- assertNotVisible: "设置"
+
+- takeScreenshot: "toolbar-interactions-test-complete"

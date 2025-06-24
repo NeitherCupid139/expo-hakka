@@ -1,0 +1,41 @@
+# 导航和滚动测试
+appId: com.expohakka.example
+---
+- launchApp
+- assertVisible: "ExpoHakka Toolbar Demo"
+
+# 测试向下滚动
+- scroll:
+    direction: DOWN
+    duration: 1000
+- assertVisible: "自定义工具栏演示"
+
+# 继续向下滚动
+- scroll:
+    direction: DOWN
+    duration: 1000
+- assertVisible: "无工具栏视图"
+
+# 测试向上滚动
+- scroll:
+    direction: UP
+    duration: 1000
+- assertVisible: "标准工具栏演示"
+
+# 滚动到顶部
+- scroll:
+    direction: UP
+    duration: 1000
+- assertVisible: "ExpoHakka Toolbar Demo"
+
+# 测试快速滚动
+- scroll:
+    direction: DOWN
+    speed: 50
+- scroll:
+    direction: UP
+    speed: 50
+
+# 验证所有主要区域都可见
+- assertVisible: "模块信息"
+- takeScreenshot: "navigation-test-complete"

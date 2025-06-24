@@ -1,0 +1,81 @@
+# 自定义工具栏测试
+appId: com.expohakka.example
+---
+- launchApp
+- assertVisible: "ExpoHakka Toolbar Demo"
+
+# 滚动到自定义工具栏区域
+- scroll:
+    direction: DOWN
+    until:
+      visible: "自定义工具栏演示"
+
+# 验证自定义工具栏区域可见
+- assertVisible: "自定义工具栏演示"
+- assertVisible: "使用 createSimpleToolbar 和 createToolbarButton 手动构建的自定义工具栏"
+
+# 等待工具栏加载
+- waitForAnimationToEnd
+
+# 测试自定义工具栏的按钮
+# 左侧按钮（返回按钮）
+- tapOn:
+    point: "20%,30%"
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# 检查返回按钮的弹窗
+- runFlow:
+    when:
+      visible: "返回"
+    commands:
+      - assertVisible: "返回"
+      - assertVisible: "返回上一页"
+      - tapOn: "确定"
+
+# 右侧按钮组测试
+# 保存按钮
+- tapOn:
+    point: "70%,30%"
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- runFlow:
+    when:
+      visible: "保存"
+    commands:
+      - assertVisible: "保存"
+      - assertVisible: "保存当前内容"
+      - tapOn: "确定"
+
+# 分享按钮
+- tapOn:
+    point: "80%,30%"
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- runFlow:
+    when:
+      visible: "分享"
+    commands:
+      - assertVisible: "分享"
+      - assertVisible: "分享内容"
+      - tapOn: "确定"
+
+# 设置按钮
+- tapOn:
+    point: "90%,30%"
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- runFlow:
+    when:
+      visible: "设置"
+    commands:
+      - assertVisible: "设置"
+      - assertVisible: "打开设置"
+      - tapOn: "确定"
+
+# 验证工具栏按钮点击事件处理
+# 这些按钮应该触发 handleToolbarButtonPress 函数
+- takeScreenshot: "custom-toolbar-test-complete"

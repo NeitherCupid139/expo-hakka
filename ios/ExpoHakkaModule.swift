@@ -1,48 +1,34 @@
 import ExpoModulesCore
 
+// MARK: - ExpoHakka Module Definition
+// Expo module focused on SwiftUI Toolbar functionality
 public class ExpoHakkaModule: Module {
-  // Each module class must implement the definition function. The definition consists of components
-  // that describes the module's functionality and behavior.
-  // See https://docs.expo.dev/modules/module-api for more details about available components.
   public func definition() -> ModuleDefinition {
-    // Sets the name of the module that JavaScript code will use to refer to the module. Takes a string as an argument.
-    // Can be inferred from module's class name, but it's recommended to set it explicitly for clarity.
-    // The module will be accessible from `requireNativeModule('ExpoHakka')` in JavaScript.
+    // Module name
     Name("ExpoHakka")
 
-    // Sets constant properties on the module. Can take a dictionary or a closure that returns a dictionary.
+    // Module constants
     Constants([
-      "PI": Double.pi
+      "version": "1.0.0",
+      "supportedPlatforms": ["ios"]
     ])
 
-    // Defines event names that the module can send to JavaScript.
-    Events("onChange")
-
-    // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
+    // Synchronous function
     Function("hello") {
-      return "Hello world! 👋"
+      return "ExpoHakka SwiftUI Toolbar Library 👋"
     }
 
-    // Defines a JavaScript function that always returns a Promise and whose native code
-    // is by default dispatched on the different thread than the JavaScript runtime runs on.
-    AsyncFunction("setValueAsync") { (value: String) in
-      // Send an event to JavaScript.
-      self.sendEvent("onChange", [
-        "value": value
-      ])
-    }
-
-    // Enables the module to be used as a native view. Definition components that are accepted as part of the
-    // view definition: Prop, Events.
+    // View definition
     View(ExpoHakkaView.self) {
-      // Defines a setter for the `url` prop.
-      Prop("url") { (view: ExpoHakkaView, url: URL) in
-        if view.webView.url != url {
-          view.webView.load(URLRequest(url: url))
+      // Event definition
+      Events("onToolbarButtonPress")
+
+      // Toolbar configuration property
+      Prop("toolbar") { (view: ExpoHakkaView, prop: String?) in
+        DispatchQueue.main.async {
+          view.updateToolbar(prop)
         }
       }
-
-      Events("onLoad")
     }
   }
 }

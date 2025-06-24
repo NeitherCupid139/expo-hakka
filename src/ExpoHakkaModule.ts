@@ -1,12 +1,13 @@
-import { NativeModule, requireNativeModule } from 'expo';
+import { NativeModule, requireNativeModule } from "expo";
 
-import { ExpoHakkaModuleEvents } from './ExpoHakka.types';
+// 简化的模块事件类型
+export type ExpoHakkaModuleEvents = {
+	onToolbarButtonPress: (params: { buttonId: string; itemId?: string }) => void;
+};
 
 declare class ExpoHakkaModule extends NativeModule<ExpoHakkaModuleEvents> {
-  PI: number;
-  hello(): string;
-  setValueAsync(value: string): Promise<void>;
+	hello(): string;
 }
 
 // This call loads the native module object from the JSI.
-export default requireNativeModule<ExpoHakkaModule>('ExpoHakka');
+export default requireNativeModule<ExpoHakkaModule>("ExpoHakka");

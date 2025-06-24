@@ -1,0 +1,65 @@
+# 冒烟测试 - 快速验证应用核心功能
+appId: com.expohakka.example
+---
+- launchApp
+- assertVisible: "ExpoHakka Toolbar Demo"
+
+# 快速验证所有主要组件都能正常显示
+- assertVisible: "模块信息"
+- assertVisible: "标准工具栏演示"
+- assertVisible: "自定义工具栏演示"
+
+# 快速滚动测试
+- scroll:
+    direction: DOWN
+    speed: 80
+- assertVisible: "无工具栏视图"
+
+- scroll:
+    direction: UP
+    speed: 80
+- assertVisible: "ExpoHakka Toolbar Demo"
+
+# 快速工具栏功能测试
+- scroll:
+    direction: DOWN
+    until:
+      visible: "标准工具栏演示"
+
+# 测试一个标准工具栏按钮
+- tapOn:
+    point: "50%,30%"
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- runFlow:
+    when:
+      visible: "确定"
+    commands:
+      - tapOn: "确定"
+
+# 测试一个自定义工具栏按钮
+- scroll:
+    direction: DOWN
+    until:
+      visible: "自定义工具栏演示"
+
+- tapOn:
+    point: "70%,30%"
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- runFlow:
+    when:
+      visible: "确定"
+    commands:
+      - tapOn: "确定"
+
+# 验证应用仍然稳定运行
+- assertVisible: "自定义工具栏演示"
+- takeScreenshot: "smoke-test-complete"
+
+# 最终验证 - 确保应用没有崩溃
+- scroll:
+    direction: UP
+- assertVisible: "ExpoHakka Toolbar Demo"

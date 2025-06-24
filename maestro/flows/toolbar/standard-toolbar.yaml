@@ -1,0 +1,85 @@
+# 标准工具栏测试
+appId: com.expohakka.example
+---
+- launchApp
+- assertVisible: "ExpoHakka Toolbar Demo"
+
+# 滚动到标准工具栏区域
+- scroll:
+    direction: DOWN
+    until:
+      visible: "标准工具栏演示"
+
+# 验证标准工具栏区域可见
+- assertVisible: "标准工具栏演示"
+- assertVisible: "使用 createStandardToolbar 创建的标准工具栏"
+
+# 等待工具栏加载
+- waitForAnimationToEnd
+
+# 在标准工具栏区域内查找并点击工具栏按钮
+# 注意：由于这是 SwiftUI 组件，我们需要通过坐标或者可访问性标识符来定位按钮
+
+# 尝试点击工具栏区域（假设工具栏在视图的上方）
+- tapOn:
+    point: "50%,30%"
+    
+# 等待可能的弹窗或反馈
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# 检查是否有弹窗出现（Alert）
+- runFlow:
+    when:
+      visible: "个人资料"
+    commands:
+      - assertVisible: "个人资料"
+      - assertVisible: "打开个人资料"
+      - tapOn: "确定"
+
+# 尝试点击其他工具栏按钮
+- tapOn:
+    point: "70%,30%"
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# 检查添加按钮的弹窗
+- runFlow:
+    when:
+      visible: "添加按钮"
+    commands:
+      - assertVisible: "添加按钮"
+      - assertVisible: "添加新项目"
+      - tapOn: "确定"
+
+# 尝试搜索按钮
+- tapOn:
+    point: "80%,30%"
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# 检查搜索按钮的弹窗
+- runFlow:
+    when:
+      visible: "搜索"
+    commands:
+      - assertVisible: "搜索"
+      - assertVisible: "打开搜索功能"
+      - tapOn: "确定"
+
+# 尝试更多选项按钮
+- tapOn:
+    point: "90%,30%"
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# 检查更多选项的弹窗
+- runFlow:
+    when:
+      visible: "更多选项"
+    commands:
+      - assertVisible: "更多选项"
+      - assertVisible: "打开更多选项"
+      - tapOn: "确定"
+
+- takeScreenshot: "standard-toolbar-test-complete"

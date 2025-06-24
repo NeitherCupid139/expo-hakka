@@ -1,0 +1,26 @@
+# 应用启动测试
+appId: com.expohakka.example
+---
+- launchApp
+- assertVisible: "ExpoHakka Toolbar Demo"
+- assertVisible: "模块信息"
+- assertVisible: "标准工具栏演示"
+- assertVisible: "自定义工具栏演示"
+- assertVisible: "无工具栏视图"
+
+# 验证应用基本元素是否正确显示
+- assertVisible:
+    text: "使用 createStandardToolbar 创建的标准工具栏"
+- assertVisible:
+    text: "使用 createSimpleToolbar 和 createToolbarButton 手动构建的自定义工具栏"
+- assertVisible:
+    text: "不配置工具栏时显示的默认视图"
+
+# 验证滚动功能
+- scroll:
+    direction: DOWN
+- scroll:
+    direction: UP
+
+# 截图记录
+- takeScreenshot: "app-launch-complete"
